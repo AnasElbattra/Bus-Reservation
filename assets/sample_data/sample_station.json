@@ -1,0 +1,140 @@
+
+{
+    "Station": [
+        {
+            "id": "1",
+            "name": "Hurghada",
+            "station": [
+                "Hurghada",
+                "El Gouna",
+                "Sahl Hashesh"
+            ]
+        },
+        {
+            "id": "2",
+            "name": "Cairo",
+            "station": [
+                "Tahrir",
+                "El-Tagamou El-Khames",
+                "NasrCity",
+                "Almaza",
+                "Giza",
+                "Nady El sekka",
+                "ElRehab",
+                "Sixth of october",
+                "Madinaty",
+                "Kolaly",
+                "Alex Gate"
+            ]
+        },
+        {
+            "id": "3",
+            "name": "Sharm el Shiekh",
+            "station": [
+                "Royssat"
+            ]
+        },
+        {
+            "id": "4",
+            "name": "Alexandria",
+            "station": [
+                "Moharam BK",
+                "Sedi gaber",
+                "Alex - Abees",
+                "Miamy"
+            ]
+        },
+        {
+            "id": "5",
+            "name": "Marsa Matrouh",
+            "station": [
+                "Marsa Matrouh"
+            ]
+            
+        },
+        {
+            "id": "6",
+
+            "name": "Safaga",
+            "station": [
+                "Safaga"
+            ]
+        },
+        {
+            "id": "7",
+            "name": "Marsa Alam",
+            "station": [
+                "Al Quseir"
+            ]
+        },
+        {
+            "id": "8",
+            "name": "Porto El_Sokhna",
+            "station": [
+                "Porto South Beach",
+                "Cancoun",
+                "Grand Ocean"
+
+            ]
+        },
+        {
+            "id": "9",
+            "name": "Qena",
+            "station": [
+                "Qena"
+            ]
+        },
+        {
+            "id": "10",
+            "name": "Luxor",
+            "station": [
+                "Luxor"
+            ]
+        },
+        {
+            "id": "11",
+            "name": "Assiut",
+            "station": [
+                "Assiut"
+            ]
+        },
+        {
+            "id": "12",
+            "name": "North Coast",
+            "station": [
+                "Marasi",
+                "Marina 5 ",
+                "Marina 7"
+            ]
+        },
+        {
+            "id": "13",
+            "name": "Ras Sedr",
+            "station": [
+                "Mousa Coast",
+                "Matarma Bay - Ras Sedr"
+            ]
+        },
+        {
+            "id": "14",
+            "name": "Dahab",
+            "station": [
+                "Dahab"
+            ]
+        },
+        {
+            "id": "15",
+            "name": "Nuweiba",
+            "station": [
+                "Nuweiba"
+            ]
+        },
+        {
+            "id": "16",
+            "name": "Port Said",
+            "station": [
+                "Port Said"
+            ]
+        }
+    ]
+}

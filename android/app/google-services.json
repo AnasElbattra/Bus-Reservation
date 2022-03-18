@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "590397533176",
+    "project_id": "ismail-376d2",
+    "storage_bucket": "ismail-376d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590397533176:android:7792e4aa1e206361f2840d",
+        "android_client_info": {
+          "package_name": "com.example.gobusss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590397533176-865qukhrqinsm9hvmj1lj6ch4km9jjoo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-qOCys8ecZuSGtfgNMwD-dt5angKE_zg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590397533176-865qukhrqinsm9hvmj1lj6ch4km9jjoo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
