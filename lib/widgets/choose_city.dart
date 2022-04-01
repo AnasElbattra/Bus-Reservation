@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gobusss/model/book_now_manager.dart';
+import '../model/book_now_manager.dart';
 
-import 'package:gobusss/widgets/departure.dart';
+import '../widgets/departure.dart';
 import 'package:provider/provider.dart';
 
 class ChooseCity extends StatelessWidget {
@@ -10,7 +10,7 @@ class ChooseCity extends StatelessWidget {
   final String station;
   final bool isFrom;
 
-  final String fromOrTo;
+  final String  fromOrTo;
 
   const ChooseCity(
       {Key? key,
@@ -63,7 +63,7 @@ class ChooseCity extends StatelessWidget {
                     Text(
                       fromOrTo,
                       style: TextStyle(
-                        color: Colors.indigoAccent.shade400,
+                        color: Colors.indigoAccent.shade100,
                         fontSize: 12,
                       ),
                     ),

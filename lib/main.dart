@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gobusss/dummy.dart';
 import 'package:gobusss/model/book_now_manager.dart';
 import 'package:gobusss/model/cities_manager.dart';
 import 'package:gobusss/newtork/stations_api.dart';
+import 'package:gobusss/screens/account_screen.dart';
 import 'package:gobusss/screens/book_now.dart';
-import 'package:gobusss/screens/sign_up_screen.dart';
+
 
 import 'package:provider/provider.dart';
 
@@ -16,6 +18,8 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
  await Firebase.initializeApp();
+
+  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
  // for (var i in DUMMY_CityStation){
  //   insertStation(i);
  // }
@@ -48,11 +52,11 @@ class MyApp extends StatelessWidget {
 
           ),
         ),
-        home: const HomeLayout(),
+        home:  const HomeLayout(),
         routes: {
           DepartureScreen.routeName: (ctx) => const DepartureScreen(),
           BookNow.routeName: (ctx) =>  BookNow(),
-          SignUpScreen.routeName: (ctx) =>  const SignUpScreen(),
+          AccountScreen.routeName: (ctx) =>  const AccountScreen(),
 
         },
       ),

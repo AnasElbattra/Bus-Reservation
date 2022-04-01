@@ -1,156 +1,104 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../screens/sign_up_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:gobusss/widgets/account_auth.dart';
+import 'package:gobusss/widgets/account_page.dart';
 
-import '../widgets/text_form_field.dart';
+class AccountScreen extends StatefulWidget {
+  static const routeName = 'sign in ';
 
-class AccountScreen extends StatelessWidget {
   const AccountScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          Container(
-            color: Colors.grey[500],
-          ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Sign In',
-                  style: TextStyle(color: Colors.grey[500], fontSize: 18),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Sign in to booking your bus',
-                  style: TextStyle(color: Colors.grey[300]),
-                ),
-              ],
-            ),
-            height: 200,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.indigo,
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(25),
-                bottomLeft: Radius.circular(25),
-              ),
-            ),
-          ),
-          Center(
-            child: Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                child: Card(
-                  color: Colors.white,
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const TextFormFieldCustom(
-                            hint: "Email",
-                            prefixIcon: Icon(
-                              Icons.email,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const TextFormFieldCustom(
-                            hint: "Password",
-                            prefixIcon: Icon(
-                              Icons.lock_outline,
-                            ),
-                            obscure: true,
-                            suffixIcon: Icon(Icons.remove_red_eye),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          SizedBox(
-                            height: 50,
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                  elevation: MaterialStateProperty.all(5),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(20),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                child: const Center(
-                                  child: Text(
-                                    "Sign In",
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                )),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextButton(
-                                  onPressed: () {},
-                                  child: const Text('forget password?')),
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, SignUpScreen.routeName);
-                                  },
-                                  child: const Text(
-                                    'Sign Up',
-                                    style:
-                                        TextStyle(color: Colors.deepOrange),
-                                  )),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 450,
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: Card(
+  State<AccountScreen> createState() => _AccountScreenState();
+}
 
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: const [
-                      Icon(Icons.account_circle,size: 40),
-                      Icon(Icons.directions_bus_rounded,size: 40,),
-                      Icon(Icons.directions_bus_rounded,size: 40,),
-                      Icon(Icons.directions_bus_rounded,size: 40,),
-                    ],
-                  ),
-                  color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-    );
+class _AccountScreenState extends State<AccountScreen> {
+  final _auth = FirebaseAuth.instance;
+  var isLoading = false;
+
+  void _submitAccountForm(
+    String email,
+    String password,
+    String username,
+    bool isSignIn,
+    BuildContext ctx,
+  ) async {
+    UserCredential userCredential;
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      if (isSignIn) {
+        userCredential = await _auth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        print(userCredential);
+      } else {
+        userCredential = await _auth.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(userCredential.user?.uid)
+          .set({
+        'email': email,
+        'username': username,
+      });
+      }//close else
+    } on FirebaseAuthException catch (e) {
+      var message = 'An error occurred, pelase check your credentials!';
+
+      if (e.message != null) {
+        message = e.message!;
+      }
+      ScaffoldMessenger.of(context)..hideCurrentSnackBar..showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Theme.of(ctx).errorColor,
+        ),
+      );
+      setState(() {
+        isLoading = false;
+      });
+    }  catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          backgroundColor: Theme.of(ctx).errorColor,
+        ),
+      );
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasData ) {
+            return  AccountPage(isLoading: isLoading=false,);
+            // create var isLoading in AccountPage and initialize here to false
+          }
+          return AccountForm(
+            submitFn: _submitAccountForm,
+            isLoading: isLoading,
+          );
+        });
   }
 }

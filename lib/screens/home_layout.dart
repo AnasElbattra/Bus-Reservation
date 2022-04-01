@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gobusss/screens/sign_up_screen.dart';
+
 import 'package:provider/provider.dart';
 import '../model/book_now_manager.dart';
 import 'tickets.dart';
@@ -15,30 +17,32 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
+
   List<Widget> screens = [
     BookNow(),
     const Tickets(),
-    const AccountScreen(),
-    const MoreScreen(),
-
+    AccountScreen(),
+    const MyStatefulWidget(),
   ];
   List<Widget> title = [
     const Text('Book Your Bus Trip Now'),
     const Text('My Tickets'),
-    const Icon(Icons.login,color: Colors.deepOrange,),
+      Icon(
+      Icons.login,
+      color: Colors.deepOrange,
+    ),
     const Text('More'),
   ];
 
   @override
   Widget build(BuildContext context) {
     final bookNowManager = context.watch<BookNowManager>();
-    final controller = PageController(
-      initialPage: 0,
-    );
+    final pageController = PageController(initialPage: 0);
     final pageView = PageView(
-      controller: controller,
+      physics: BouncingScrollPhysics(),
+      controller: pageController,
       onPageChanged: (value) {
-       bookNowManager.goToTap(value);
+        bookNowManager.goToTap(value);
       },
       children: screens,
     );
@@ -47,17 +51,17 @@ class _HomeLayoutState extends State<HomeLayout> {
         elevation: 0,
         backgroundColor: Colors.indigo,
         title: Center(
-          child:title[bookNowManager.selectedTap],
-         ),
+          child: title[bookNowManager.selectedTap],
+        ),
       ),
       body: pageView,
       bottomNavigationBar: BottomNavigationBar(
         // enableFeedback:false ,
 
-        currentIndex: context.watch<BookNowManager>().selectedTap,
+        currentIndex: bookNowManager.selectedTap,
         onTap: (index) {
-          context.read<BookNowManager>().goToTap(index);
-          controller.animateToPage(context.read<BookNowManager>().selectedTap,
+          bookNowManager.goToTap(index);
+          pageController.animateToPage(bookNowManager.selectedTap,
               duration: const Duration(
                 milliseconds: 200,
               ),

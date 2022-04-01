@@ -9,11 +9,10 @@ Future<List<CityStation>> getAllStation() async {
         (e) => CityStation(
           id: e.id,
           name: e.data()["name"],
-          station:( e.data()["station"] as List ).cast(),
+          station: (e.data()["station"] as List).cast(),
         ),
       )
-      .toList()
-      ;
+      .toList();
 }
 
 insertStation(CityStation station) {
@@ -23,3 +22,5 @@ insertStation(CityStation station) {
     "station": station.station,
   });
 }
+
+
