@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">gobusss</string>
     <string name="facebook_app_id">1700306913659987</string>
-    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="fb_login_protocol_scheme">fb1700306913659987</string>
     <string name="facebook_client_token">fae5b151df3053f6ec6cee4c7108e694</string>
 </resources>

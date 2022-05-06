@@ -1,6 +1,5 @@
 
-
-import 'model/station.dart';
+import 'package:gobusss/domain/model/model_container.dart';
 
 const DUMMY_CityStation = [
   CityStation(

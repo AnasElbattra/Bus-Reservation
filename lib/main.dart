@@ -1,65 +1,37 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:gobusss/dummy.dart';
-import 'package:gobusss/model/book_now_manager.dart';
-import 'package:gobusss/model/cities_manager.dart';
-import 'package:gobusss/newtork/stations_api.dart';
-import 'package:gobusss/screens/account_screen.dart';
-import 'package:gobusss/screens/book_now.dart';
-
-
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:gobusss/app/app_preferences.dart';
+import 'package:gobusss/app/di.dart';
+import 'package:gobusss/domain/model/model_container.dart';
+import 'package:gobusss/presentation/presentation_contatiner.dart';
+import 'package:gobusss/presentation/resources/language_manager.dart';
 import 'package:provider/provider.dart';
-
-import 'screens/departure_screen.dart';
-import 'screens/home_layout.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-void main() async{
+import 'app/app.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await Firebase.initializeApp();
+  await EasyLocalization.ensureInitialized();
+  await initApp();
+  await Firebase.initializeApp();
 
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
- // for (var i in DUMMY_CityStation){
- //   insertStation(i);
- // }
+  // for (var i in DUMMY_CityStation){
+  //   insertStation(i);
+  // }
 
-  runApp(const MyApp());
-}
+  runApp(
+    EasyLocalization(
+      supportedLocales: [ARABIC_LOCAL, ENGLISH_LOCAL],
+      path: ASSET_PATH_LOCALISATIONS,
+      fallbackLocale:ENGLISH_LOCAL ,
+      child: Phoenix(
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => BookNowManager(),),
-        ChangeNotifierProvider(create: (context) => CitiesManager()..init(),),
-
-      ],
-      child: MaterialApp(
-
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-
-          colorScheme: ThemeData().colorScheme.copyWith(
-            secondary: Colors.deepOrange,
-            primary: Colors.indigo,
-
-
-          ),
-        ),
-        home:  const HomeLayout(),
-        routes: {
-          DepartureScreen.routeName: (ctx) => const DepartureScreen(),
-          BookNow.routeName: (ctx) =>  BookNow(),
-          AccountScreen.routeName: (ctx) =>  const AccountScreen(),
-
-        },
+        child: MyApp(),
       ),
-    );
-  }
+    ),
+  );
 }
+

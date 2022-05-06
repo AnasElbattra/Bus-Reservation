@@ -1,0 +1,15 @@
+export 'auth/view/auth_view.dart';
+export 'book_now/view/book_now_view.dart';
+export 'home/view/home_view.dart';
+export 'trip/view/trip_view.dart';
+export 'resources/string_manager.dart';
+export 'resources/assets_manager.dart';
+export 'resources/color_manager.dart';
+export 'resources/font_manager.dart';
+export 'resources/route_manager.dart';
+export 'resources/style_manager.dart';
+export 'resources/theme_manager.dart';
+export 'resources/values_manager.dart';
+export 'avilable_buses/view/available_buses_view.dart';
+export 'splash/view/splash_view.dart';
+export 'mobile/view/mobile_view.dart';
